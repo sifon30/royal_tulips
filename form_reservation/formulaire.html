@@ -1,0 +1,864 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link
+      href="https://unpkg.com/css.gg@2.0.0/icons/css/menu.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+      integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+  </head>
+
+  <style>
+    .error {
+      border: 1px solid red;
+    }
+
+    .required-marker {
+      color: red;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    a {
+      color: rgb(0, 0, 0);
+      text-decoration: none;
+    }
+
+    header {
+      position: fixed;
+      background-color: rgb(240, 240, 240);
+      color: rgb(205, 144, 1);
+      z-index: 100000;
+      top: 0;
+      left: 0;
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: 0.6s;
+    }
+    .main-head.sticky {
+      background: #fff;
+    }
+    .main-head.sticky nav ul li a {
+      color: #000000;
+    }
+    nav {
+      min-height: 10vh;
+      display: flex;
+      align-items: center;
+      width: 90%;
+      margin: auto;
+      padding: 2rem;
+    }
+
+    nav ul {
+      position: relative;
+      display: flex;
+      flex: 1 1 40rem;
+      justify-content: space-around;
+      align-items: center;
+      list-style: none;
+    }
+    header ul li {
+      position: relative;
+      list-style: none;
+    }
+    header ul li a {
+      position: relative;
+      margin: 0 15px;
+      text-decoration: none;
+      color: #000000;
+      letter-spacing: 1px;
+      font-weight: 500px;
+      font-size: 1.1rem;
+      transition: 0.6s;
+    }
+
+    header ul li a:hover {
+      color: rgb(205, 144, 1);
+      text-decoration: underline;
+    }
+
+    #logo {
+      flex: 2 1 40rem;
+    }
+
+    .nav .toggle_btn {
+      color: #010101;
+      font-size: 1.9rem;
+      cursor: pointer;
+      display: none;
+    }
+
+    /***responsive*/
+
+    @media (max-width: 692px) {
+      .nav ul {
+        display: none;
+      }
+
+      .nav .toggle_btn {
+        display: block;
+      }
+    }
+
+    /*dropdown menu***/
+    .dropdown_menu {
+      position: absolute;
+      right: 2rem;
+      top: 60px;
+      height: 0;
+      width: 300px;
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(15px);
+      border-radius: 10px;
+      overflow: hidden;
+      transition: height 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    .dropdown_menu.open {
+      height: 240px;
+    }
+
+    .dropdown_menu li {
+      padding: 0.7rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .dropdown_menu .action_btn {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+    }
+
+    @media (max-width: 576px) {
+      .dropdown_menu {
+        left: 2rem;
+        width: unset;
+      }
+    }
+
+    /* Form styling */
+
+    form {
+      margin-top: 150px;
+    }
+    .section-center {
+      text-align: center;
+    }
+
+    .container {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    .row {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+    }
+
+    .booking-form {
+      width: 100%;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .form-header h1 {
+      margin-bottom: 20px;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: bold;
+      color: #333;
+    }
+
+    .form-control {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      box-sizing: border-box;
+    }
+
+    .required-marker {
+      color: red;
+    }
+
+    .form-btn {
+      margin-top: 20px;
+    }
+
+    .submit-btn {
+      background-color: #4caf50;
+      color: white;
+      padding: 12px 20px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    /*****************Footer*************************/
+
+    @import url(https://fonts.googleapis.com/css?family=Open+Sans:400,500,300,700);
+
+    .footer-distributed {
+      background: #202020;
+      box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.12);
+      box-sizing: border-box;
+      width: 100%;
+      text-align: left;
+      font: bold 16px sans-serif;
+      padding: 55px 50px;
+      margin-top: 30px;
+      border-radius: 50px 0 0 0;
+    }
+
+    .footer-distributed .footer-left,
+    .footer-distributed .footer-center,
+    .footer-distributed .footer-right {
+      display: inline-block;
+      vertical-align: top;
+    }
+
+    /* Footer left */
+
+    .footer-distributed .footer-left {
+      width: 40%;
+    }
+
+    /* The company logo */
+
+    .footer-distributed h3 {
+      color: #b36c10;
+      font: normal 36px "Open Sans", cursive;
+      margin: 0;
+      font-weight: bolder;
+    }
+
+    .footer-distributed h3 span {
+      color: lightseagreen;
+    }
+
+    /* Footer links */
+
+    .footer-distributed .footer-links {
+      color: #ffffff;
+      margin: 20px 0 12px;
+      padding: 0;
+    }
+
+    .footer-distributed .footer-links a {
+      display: inline-block;
+      line-height: 1.8;
+      font-weight: 400;
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .footer-distributed .footer-company-name {
+      color: #000000;
+      font-size: 14px;
+      font-weight: normal;
+      margin: 0;
+    }
+
+    /* Footer Center */
+
+    .footer-distributed .footer-center {
+      width: 35%;
+    }
+
+    .footer-distributed .footer-center i {
+      background-color: #33383b;
+      color: #ffffff;
+      font-size: 25px;
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      text-align: center;
+      line-height: 42px;
+      margin: 10px 15px;
+      vertical-align: middle;
+    }
+
+    .footer-distributed .footer-center i.fa-envelope {
+      font-size: 17px;
+      line-height: 38px;
+    }
+
+    .footer-distributed .footer-center p {
+      display: inline-block;
+      color: #ffffff;
+      font-weight: 400;
+      vertical-align: middle;
+      margin: 0;
+    }
+
+    .footer-distributed .footer-center p span {
+      display: block;
+      font-weight: normal;
+      font-size: 14px;
+      line-height: 2;
+    }
+
+    .footer-distributed .footer-center p a {
+      color: lightseagreen;
+      text-decoration: none;
+    }
+
+    .footer-distributed .footer-links a:before {
+      content: "|";
+      font-weight: 300;
+      font-size: 20px;
+      left: 0;
+      color: #fff;
+      display: inline-block;
+      padding-right: 5px;
+    }
+
+    .footer-distributed .footer-links .link-1:before {
+      content: none;
+    }
+
+    /* Footer Right */
+
+    .footer-distributed .footer-right {
+      width: 20%;
+    }
+
+    .footer-distributed .footer-company-about {
+      line-height: 20px;
+      color: #92999f;
+      font-size: 13px;
+      font-weight: normal;
+      margin: 0;
+    }
+
+    .footer-distributed .footer-company-about span {
+      display: block;
+      color: #ffffff;
+      font-size: 14px;
+      font-weight: bold;
+      margin-bottom: 20px;
+    }
+
+    .footer-distributed .footer-icons {
+      margin-top: 25px;
+    }
+
+    .footer-distributed .footer-icons a {
+      display: inline-block;
+      width: 35px;
+      height: 35px;
+      cursor: pointer;
+      background-color: #33383b;
+      border-radius: 2px;
+
+      font-size: 20px;
+      color: #ffffff;
+      text-align: center;
+      line-height: 35px;
+
+      margin-right: 3px;
+      margin-bottom: 5px;
+    }
+
+    /* If you don't want the footer to be responsive, remove these media queries */
+
+    @media (max-width: 880px) {
+      .footer-distributed {
+        font: bold 14px sans-serif;
+      }
+
+      .footer-distributed .footer-left,
+      .footer-distributed .footer-center,
+      .footer-distributed .footer-right {
+        display: block;
+        width: 100%;
+        margin-bottom: 40px;
+        text-align: center;
+      }
+
+      .footer-distributed .footer-center i {
+        margin-left: 0;
+      }
+    }
+
+    select {
+      /* Styles de base */
+      padding: 8px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-size: 16px;
+      outline: none; /* Supprime la bordure lorsque sélectionné */
+
+      /* Styles spécifiques à la flèche du select (peut varier selon le navigateur) */
+      appearance: none; /* Supprime la flèche de sélection par défaut */
+      -webkit-appearance: none; /* Pour les navigateurs basés sur WebKit (comme Safari) */
+      -moz-appearance: none; /* Pour les navigateurs basés sur Gecko (comme Firefox) */
+
+      /* Image personnalisée pour la flèche (facultatif) */
+      background-image: url("arrow.png"); /* Chemin vers votre image de flèche personnalisée */
+      background-position: right center;
+      background-repeat: no-repeat;
+      padding-right: 30px; /* Espace pour l'image de la flèche */
+    }
+
+    /* Styles pour les options */
+    select option {
+      /* Styles de base */
+      font-size: 16px;
+    }
+  </style>
+
+  <script></script>
+  <script>
+    /**********menu************/
+    const menuBtn = document.querySelector(".menu-btn");
+    const navul = document.querySelector(".nav ul");
+    menuBtn.addEventListener("click", () => {
+      navul.classList.toggle("mobile-menu");
+    });
+
+    function validateForm() {
+      var first_name = document.forms["reservationForm"]["first_name"];
+      var lastName = document.forms["reservationForm"]["last_name"];
+      var email = document.forms["reservationForm"]["email"];
+      var country = document.forms["reservationForm"]["country"];
+      var phone = document.forms["reservationForm"]["phone"];
+      var arrivalDate = document.forms["reservationForm"]["arrival_date"];
+      var departureDate = document.forms["reservationForm"]["departure_date"];
+      var numPersons = document.forms["reservationForm"]["num_persons"];
+      var numRooms = document.forms["reservationForm"]["num_rooms"];
+      var typeChamber = document.forms["reservationForm"]["type_chamber"];
+
+      var isValid = true;
+
+      // Fonction pour ajouter ou retirer la classe d'erreur
+      function toggleErrorClass(element, addErrorClass) {
+        if (addErrorClass) {
+          element.classList.add("error");
+        } else {
+          element.classList.remove("error");
+        }
+      }
+
+      function toggleRequiredMarker(element, addRequiredMarker) {
+        if (addRequiredMarker) {
+          element.classList.add("required-marker");
+        } else {
+          element.classList.remove("required-marker");
+        }
+      }
+
+      if (first_name.value === "") {
+        toggleErrorClass(first_name, true);
+        toggleRequiredMarker(first_name, true);
+        isValid = false;
+      } else {
+        toggleErrorClass(first_name, false);
+        toggleRequiredMarker(first_name, false);
+      }
+
+      if (lastName.value === "") {
+        toggleErrorClass(lastName, true);
+        toggleRequiredMarker(lastName, true);
+        isValid = false;
+      } else {
+        toggleErrorClass(lastName, false);
+        toggleRequiredMarker(lastName, false);
+      }
+
+      if (email.value === "") {
+        toggleErrorClass(email, true);
+        toggleRequiredMarker(email, true);
+        isValid = false;
+      } else {
+        toggleErrorClass(email, false);
+        toggleRequiredMarker(email, false);
+      }
+      if (country.value === "") {
+        toggleErrorClass(country, true);
+        toggleRequiredMarker(country, true);
+        isValid = false;
+      } else {
+        toggleErrorClass(country, false);
+        toggleRequiredMarker(country, false);
+      }
+
+      if (phone.value === "") {
+        toggleErrorClass(phone, true);
+        toggleRequiredMarker(phone, true);
+        isValid = false;
+      } else {
+        toggleErrorClass(phone, false);
+        toggleRequiredMarker(phone, false);
+      }
+
+      if (arrivalDate.value === "") {
+        toggleErrorClass(arrivalDate, true);
+        toggleRequiredMarker(arrivalDate, true);
+        isValid = false;
+      } else {
+        toggleErrorClass(arrivalDate, false);
+        toggleRequiredMarker(arrivalDate, false);
+      }
+
+      if (departureDate.value === "") {
+        toggleErrorClass(departureDate, true);
+        toggleRequiredMarker(departureDate, true);
+        isValid = false;
+      } else {
+        toggleErrorClass(departureDate, false);
+        toggleRequiredMarker(departureDate, false);
+      }
+
+      if (numPersons.value === "") {
+        toggleErrorClass(numPersons, true);
+        toggleRequiredMarker(numPersons, true);
+        isValid = false;
+      } else {
+        toggleErrorClass(numPersons, false);
+        toggleRequiredMarker(numPersons, false);
+      }
+
+      if (numRooms.value === "") {
+        toggleErrorClass(numRooms, true);
+        toggleRequiredMarker(numRooms, true);
+        isValid = false;
+      } else {
+        toggleErrorClass(numRooms, false);
+        toggleRequiredMarker(numRooms, false);
+      }
+
+      if (typeChamber.value === "") {
+        toggleErrorClass(typeChamber, true);
+        toggleRequiredMarker(typeChamber, true);
+        isValid = false;
+      } else {
+        toggleErrorClass(typeChamber, false);
+        toggleRequiredMarker(typeChamber, false);
+      }
+
+      if (!validateDateRange(arrivalDate.value, departureDate.value)) {
+        alert("Departure date must be after arrival date.");
+        isValid = false;
+      }
+
+      return isValid;
+    }
+
+    function validateDateRange(arrivalDate, departureDate) {
+      // Convert string dates to Date objects
+      var arrival = new Date(arrivalDate);
+      var departure = new Date(departureDate);
+
+      // Compare dates
+      return departure > arrival;
+    }
+  </script>
+
+  <body>
+    <header class="main-head">
+      <nav class="nav">
+        <h1 id="logo">Royal Tulip</h1>
+        <ul>
+          <li><a href="../event_room/hotel.php">Home </a></li>
+          <li><a href="../event_room/hotel.php#about">About</a></li>
+          <li><a href="../event_room/hotel.php#rooms">Rooms</a></li>
+          <li><a href="../event_room/hotel.php#events">Event</a></li>
+          <li><a href="../event_room/hotel.php#contact">Contact</a></li>
+          <li><a href="../form_reservation/formulaire.html">Reservation</a></li>
+        </ul>
+
+        <div class="toggle_btn">
+          <i class="fa-solid fa-bars"></i>
+        </div>
+      </nav>
+
+      <div class="dropdown_menu">
+        <li><a href="../event_room/hotel.php">Home </a></li>
+        <li><a href="../event_room/hotel.php#about">About</a></li>
+        <li><a href="../event_room/hotel.php#rooms">Rooms</a></li>
+        <li><a href="../event_room/hotel.php#events">Event</a></li>
+        <li><a href="../event_room/hotel.php#contact">Contact</a></li>
+
+        <li><a href="../form_reservation/formulaire.html">Reservation</a></li>
+      </div>
+    </header>
+    <script>
+      const togglebtn = document.querySelector(".toggle_btn");
+      const togglebtnicon = document.querySelector(".toggle_btn i");
+      const dropDownMenu = document.querySelector(".dropdown_menu");
+
+      togglebtn.onclick = function () {
+        dropDownMenu.classList.toggle("open");
+        const isOpen = dropDownMenu.classList.contains("open");
+
+        togglebtnicon.classList = isOpen
+          ? "fa-solid fa-xmark"
+          : "fa-solid fa-bars";
+      };
+    </script>
+
+    <form
+      name="reservationForm"
+      action="formulaire.php"
+      onsubmit="return validateForm()"
+      method="post"
+    >
+      <div id="booking" class="section">
+        <div class="section-center">
+          <div class="container">
+            <div class="row">
+              <div class="booking-form">
+                <div class="form-header">
+                  <h1>Make your hotel reservation</h1>
+                </div>
+                <form>
+                  <div class="row">
+                    <div class="col-sm-6">
+                      <div class="form-group">
+                        <span class="form-label"
+                          >First Name
+                          <span class="required-marker">*</span></span
+                        >
+                        <input
+                          class="form-control"
+                          type="text"
+                          name="first_name"
+                          placeholder="Enter your first  name"
+                          required
+                        />
+                      </div>
+                    </div>
+
+                    <div class="col-sm-6">
+                      <div class="form-group">
+                        <span class="form-label"
+                          >Last Name
+                          <span class="required-marker">*</span></span
+                        >
+                        <input
+                          class="form-control"
+                          type="text"
+                          name="last_name"
+                          placeholder="Enter your last name"
+                          required
+                        />
+                      </div>
+                    </div>
+                    <div class="col-sm-6">
+                      <div class="form-group">
+                        <span class="form-label"
+                          >Email <span class="required-marker">*</span></span
+                        >
+                        <input
+                          class="form-control"
+                          type="email"
+                          name="email"
+                          placeholder="Enter your email"
+                          required
+                        />
+                      </div>
+                    </div>
+
+                    <div class="col-sm-6">
+                      <div class="form-group">
+                        <span class="form-label"
+                          >Contry <span class="required-marker">*</span></span
+                        >
+                        <input
+                          class="form-control"
+                          type="text"
+                          name="country"
+                          placeholder=""
+                          required
+                        />
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <span class="form-label"
+                      >Phone <span class="required-marker">*</span></span
+                    >
+                    <input
+                      class="form-control"
+                      name="phone"
+                      type="tel"
+                      placeholder="Enter your phone number"
+                      required
+                    />
+                  </div>
+
+                  <div class="row">
+                    <div class="col-sm-5">
+                      <div class="form-group">
+                        <span class="form-label"
+                          >Arrival Date
+                          <span class="required-marker">*</span></span
+                        >
+                        <input
+                          class="form-control"
+                          name="arrival_date"
+                          type="date"
+                          required
+                        />
+                      </div>
+                    </div>
+
+                    <div class="col-sm-5">
+                      <div class="form-group">
+                        <span class="form-label"
+                          >Date of Departure
+                          <span class="required-marker">*</span></span
+                        >
+                        <input
+                          class="form-control"
+                          name="departure_date"
+                          type="date"
+                          required
+                        />
+                      </div>
+                    </div>
+
+                    <div class="col-sm-5">
+                      <div class="form-group">
+                        <span class="form-label"
+                          >Number of persons
+                          <span class="required-marker">*</span>
+                        </span>
+                        <input
+                          class="form-control"
+                          name="num_persons"
+                          type="number"
+                          min="1"
+                          required
+                        />
+                      </div>
+                    </div>
+
+                    <div class="col-sm-5">
+                      <div class="form-group">
+                        <span class="form-label"
+                          >Number of room
+                          <span class="required-marker">*</span></span
+                        >
+                        <input
+                          class="form-control"
+                          name="num_rooms"
+                          type="number"
+                          min="1"
+                          required
+                        />
+                      </div>
+                    </div>
+
+                    <div class="col-sm-5">
+                      <div class="form-group">
+                        <span class="form-label"
+                          >type of chamber
+                          <span class="required-marker">*</span>
+                        </span>
+                        <select name="type_chamber" id="">
+                          <option value=""></option>
+                          <option value="Normal">Normal</option>
+                          <option value="Suite">Suite</option>
+                          <option value="Deluxe">Deluxe</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-btn">
+                    <button class="submit-btn" name="send">Reserve Now</button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+
+    <footer class="footer-distributed">
+      <div class="footer-left">
+        <h3>Royal Tulip</h3>
+
+        <p class="footer-links">
+          <a href="#" class="link-1">Home</a>
+
+          <a href="#">Reservation</a>
+
+          <a href="#">contact </a>
+
+          <a href="#">About</a>
+        </p>
+
+        <p class="footer-company-name">Royal Tulip © 2015</p>
+      </div>
+
+      <div class="footer-center">
+        <div>
+          <i class="fa fa-map-marker"></i>
+          <p><span>Ain oktor, Korbous 8041 </span></p>
+        </div>
+
+        <div>
+          <i class="fa fa-phone"></i>
+          <p>36028000</p>
+        </div>
+
+        <div>
+          <i class="fa fa-external-link"></i>
+          <p>
+            <a href="https://royal-tulip-korbous.goldentulip.com/en-us/"
+              >goldentulip.com</a
+            >
+          </p>
+        </div>
+      </div>
+
+      <div class="footer-right">
+        <p class="footer-company-about">
+          <span>About </span>
+          Lorem ipsum dolor sit amet, consectateur adispicing elit. Fusce
+          euismod convallis velit, eu auctor lacus vehicula sit amet.
+        </p>
+
+        <div class="footer-icons">
+          <a href="#"><i class="fa fa-facebook"></i></a>
+          <a href="#"><i class="fa fa-instagram"></i></a>
+        </div>
+      </div>
+
+
+    </footer>
+  </body>
+</html>
